@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 // indicando ao JPA que essa classe é uma entidade
 @Entity
 public class Categoria implements Serializable {
@@ -22,6 +24,7 @@ public class Categoria implements Serializable {
 	private String nome;
 
 	// Associaçoes
+	@JsonManagedReference // Indica que tudo bem que o json seja serializado
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
 
