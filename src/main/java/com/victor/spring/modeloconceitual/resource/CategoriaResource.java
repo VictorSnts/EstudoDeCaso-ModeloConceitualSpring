@@ -16,7 +16,7 @@ public class CategoriaResource {
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Categoria> listar() {
 		
-		Categoria cat1 = new Categoria(1, "INFORMETICA");
+		Categoria cat1 = new Categoria(1, "INFORMATICA");
 		Categoria cat2 = new Categoria(2, "ESCRITORIO");
 
 		List<Categoria> lista = new ArrayList<>();
