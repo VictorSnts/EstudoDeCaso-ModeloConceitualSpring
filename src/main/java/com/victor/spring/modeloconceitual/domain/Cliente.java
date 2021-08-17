@@ -39,11 +39,20 @@ public class Cliente implements Serializable {
 	@CollectionTable(name = "telefone")
 	private Set<String> telefones = new HashSet<>();
 
-	// Construtores (Nao Incluir coleções)
+	// IMPLEMENTING
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
 
+	// Construtores (Nao Incluir coleções)
 	public Cliente() {
 		super();
 	}
+
+	
+
+	
+
+
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
 		super();
@@ -53,6 +62,12 @@ public class Cliente implements Serializable {
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipoCliente = tipoCliente.getId();
 	}
+
+
+
+
+
+
 
 	// Getters e Setters
 	public Integer getId() {
@@ -109,6 +124,14 @@ public class Cliente implements Serializable {
 
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	// Hash Code e Equals Padrao (somente Id)

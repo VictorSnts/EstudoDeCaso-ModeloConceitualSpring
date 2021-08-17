@@ -31,16 +31,21 @@ public class Produto implements Serializable {
 	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
 
+	// IMPLEMENTING
+	@ManyToMany
+	@JoinTable(name = "item_pedido", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "pedido_id"))
+	private List<Pedido> pedidos = new ArrayList<>();
+
 	// Construtores (Nao Incluir coleções)
+	public Produto() {
+		super();
+	}
+
 	public Produto(Integer id, String nome, Double preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
-	}
-
-	public Produto() {
-		super();
 	}
 
 	// Getters e Setters
@@ -74,6 +79,14 @@ public class Produto implements Serializable {
 
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	// Hash Code e Equals Padrao (somente Id)
