@@ -1,5 +1,7 @@
 package com.victor.spring.modeloconceitual.resource;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,12 @@ public class ClienteResource {
 	public ResponseEntity<?> listar(@PathVariable Integer id) {
 
 		Cliente cliente = clienteService.buscar(id);
+		return ResponseEntity.ok().body(cliente);
+	}
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ResponseEntity<?> listar() {
+		List<Cliente> cliente = clienteService.listar();
 		return ResponseEntity.ok().body(cliente);
 	}
 }

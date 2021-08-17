@@ -15,7 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.victor.spring.modeloconceitual.domain.enums.TipoCliente;
 
 @Entity
@@ -31,7 +31,6 @@ public class Cliente implements Serializable {
 	private Integer tipoCliente;
 
 	// Associaçoes
-	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 
@@ -39,7 +38,7 @@ public class Cliente implements Serializable {
 	@CollectionTable(name = "telefone")
 	private Set<String> telefones = new HashSet<>();
 
-	// IMPLEMENTING
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 
@@ -47,12 +46,6 @@ public class Cliente implements Serializable {
 	public Cliente() {
 		super();
 	}
-
-	
-
-	
-
-
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
 		super();
@@ -62,12 +55,6 @@ public class Cliente implements Serializable {
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipoCliente = tipoCliente.getId();
 	}
-
-
-
-
-
-
 
 	// Getters e Setters
 	public Integer getId() {
