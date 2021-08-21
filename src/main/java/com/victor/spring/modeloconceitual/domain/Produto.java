@@ -2,8 +2,10 @@ package com.victor.spring.modeloconceitual.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,10 +34,8 @@ public class Produto implements Serializable {
 	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
 
-	// IMPLEMENTING
-	@ManyToMany
-	@JoinTable(name = "item_pedido", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "pedido_id"))
-	private List<Pedido> pedidos = new ArrayList<>();
+	@OneToMany(mappedBy = "id.produto")
+	private Set<ItemPedido> itens = new HashSet<>();
 
 	// Construtores (Nao Incluir coleções)
 	public Produto() {
@@ -46,6 +47,15 @@ public class Produto implements Serializable {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
+	}
+
+	// Metodos()
+	public List<Pedido> getPedidos() {
+		List<Pedido> lista = new ArrayList<>();
+		for (ItemPedido x : itens) {
+			lista.add(x.getPedido());
+		}
+		return lista;
 	}
 
 	// Getters e Setters
@@ -81,12 +91,12 @@ public class Produto implements Serializable {
 		this.categorias = categorias;
 	}
 
-	public List<Pedido> getPedidos() {
-		return pedidos;
+	public Set<ItemPedido> getItens() {
+		return itens;
 	}
 
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
 	}
 
 	// Hash Code e Equals Padrao (somente Id)
