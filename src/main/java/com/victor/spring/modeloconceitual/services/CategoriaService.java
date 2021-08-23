@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.victor.spring.modeloconceitual.domain.Categoria;
+import com.victor.spring.modeloconceitual.dto.CategoriaDTO;
 import com.victor.spring.modeloconceitual.repositories.CategoriaRepository;
 import com.victor.spring.modeloconceitual.services.exceptions.DataIntegrityException;
 import com.victor.spring.modeloconceitual.services.exceptions.ObjectNotFoundException;
@@ -27,36 +28,41 @@ public class CategoriaService {
 		return categoria.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
-	
+
 	public List<Categoria> listar() {
 		List<Categoria> categorias = categoriaRepository.findAll();
-		if(categorias.isEmpty())
+		if (categorias.isEmpty())
 			throw new ObjectNotFoundException("Nenhum objeto encontrado!");
 		return categorias;
 	}
-	
+
 	public Categoria inserir(Categoria categoria) {
 		categoria.setId(null); // Garantindo que o objeto seja uma nova categoria
 		return categoriaRepository.save(categoria);
 	}
-	
+
 	public Categoria atualizar(Categoria categoria) {
 		this.buscar(categoria.getId());
 		return categoriaRepository.save(categoria);
 	}
-	
+
 	public void deletar(Integer id) {
 		this.buscar(id);
 		try {
 			categoriaRepository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possivel excluir uma categoria que tenha produtos cadastrados. Tente remover os produtos antes.");
+			throw new DataIntegrityException(
+					"Não é possivel excluir uma categoria que tenha produtos cadastrados. Tente remover os produtos antes.");
 		}
 	}
-	
+
 	public Page<Categoria> listarPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pr = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return categoriaRepository.findAll(pr);
+	}
+
+	public Categoria fromDTO(CategoriaDTO categoriaDTO) {
+		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
 	}
 
 }
