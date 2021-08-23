@@ -34,4 +34,10 @@ public class CategoriaService {
 		categoria.setId(null); // Garantindo que o objeto seja uma nova categoria
 		return categoriaRepository.save(categoria);
 	}
+	
+	public Categoria atualizar(Categoria categoria) {
+		this.buscar(categoria.getId());
+		return categoriaRepository.save(categoria);
+	}
+	
 }
