@@ -26,7 +26,7 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(cliente);
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> listar() {
 		List<Cliente> cliente = clienteService.listar();
 		return ResponseEntity.ok().body(cliente);
