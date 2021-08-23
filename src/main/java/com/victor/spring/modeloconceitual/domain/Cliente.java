@@ -53,7 +53,9 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipoCliente = tipoCliente.getId();
+		this.tipoCliente = (tipoCliente == null) ? null : tipoCliente.getId(); // Operador ternario para salvat o codigo
+																				// caso o valor de tipoCliente nao seja
+																				// nulo.
 	}
 
 	// Getters e Setters
