@@ -23,38 +23,37 @@ public class CategoriaResource {
 	private CategoriaService categoriaService;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> listar(@PathVariable Integer id) {
+	public ResponseEntity<?> buscar(@PathVariable Integer id) {
 
 		Categoria categoria = categoriaService.buscar(id);
 		return ResponseEntity.ok().body(categoria);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> listar() {
 		List<Categoria> categoria = categoriaService.listar();
 		return ResponseEntity.ok().body(categoria);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> inserir(@RequestBody Categoria categoria) {
 		categoria = categoriaService.inserir(categoria);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()			// Pega a URI do ultimo recurso que foi inserido
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest() // Pega a URI do ultimo recurso que foi inserido
 				.path("/{id}").buildAndExpand(categoria.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@PathVariable Integer id ,@RequestBody Categoria categoria) {
+	public ResponseEntity<Void> atualizar(@PathVariable Integer id, @RequestBody Categoria categoria) {
 		categoria.setId(id);
 		categoria = categoriaService.atualizar(categoria);
 		return ResponseEntity.noContent().build();
 	}
-	
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deletar(@PathVariable Integer id) {
 		categoriaService.deletar(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 }
