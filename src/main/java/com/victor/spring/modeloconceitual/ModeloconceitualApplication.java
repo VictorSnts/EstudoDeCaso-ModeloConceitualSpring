@@ -65,6 +65,12 @@ public class ModeloconceitualApplication implements CommandLineRunner {
 
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
+		Categoria cat3 = new Categoria(null, "Vestuario");
+		Categoria cat4 = new Categoria(null, "Came Mesa e Banho");
+		Categoria cat5 = new Categoria(null, "Eletronicos");
+		Categoria cat6 = new Categoria(null, "Livros");
+		Categoria cat7 = new Categoria(null, "Brinquedos");
+		Categoria cat8 = new Categoria(null, "Saude e Bem Estar");
 
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
@@ -118,7 +124,7 @@ public class ModeloconceitualApplication implements CommandLineRunner {
 		p2.getItens().addAll(Arrays.asList(ip3));
 		p3.getItens().addAll(Arrays.asList(ip2));
 
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
