@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.victor.spring.modeloconceitual.domain.Categoria;
 import com.victor.spring.modeloconceitual.repositories.CategoriaRepository;
+import com.victor.spring.modeloconceitual.services.exceptions.DataIntegrityException;
 import com.victor.spring.modeloconceitual.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -40,4 +42,13 @@ public class CategoriaService {
 		return categoriaRepository.save(categoria);
 	}
 	
+	public void deletar(Integer id) {
+		this.buscar(id);
+		try {
+			categoriaRepository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possivel excluir uma categoria que tenha produtos cadastrados. Tente remover os produtos antes.");
+		}
+	}
+
 }
