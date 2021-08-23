@@ -2,6 +2,7 @@ package com.victor.spring.modeloconceitual.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.victor.spring.modeloconceitual.domain.Categoria;
+import com.victor.spring.modeloconceitual.dto.CategoriaDTO;
 import com.victor.spring.modeloconceitual.services.CategoriaService;
 
 @RestController
@@ -31,8 +33,10 @@ public class CategoriaResource {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> listar() {
-		List<Categoria> categoria = categoriaService.listar();
-		return ResponseEntity.ok().body(categoria);
+		List<Categoria> categorias = categoriaService.listar();
+		List<CategoriaDTO> categoriaDTO = categorias.stream().map(obj -> new CategoriaDTO(obj))
+				.collect(Collectors.toList());
+		return ResponseEntity.ok().body(categoriaDTO);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
