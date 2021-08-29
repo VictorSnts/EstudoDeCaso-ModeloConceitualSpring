@@ -2,6 +2,11 @@ package com.victor.spring.modeloconceitual.resource.exception;
 
 import java.io.Serializable;
 
+/***
+ * Classe criada para carregar o nome do campo e a mensagemd e erro
+ * @author victor
+ *
+ */
 public class FieldMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 

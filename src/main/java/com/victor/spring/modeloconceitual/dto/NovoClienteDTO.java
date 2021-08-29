@@ -2,20 +2,36 @@ package com.victor.spring.modeloconceitual.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.victor.spring.modeloconceitual.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class NovoClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "O preencimento do campo 'nome' é obrigatorio.")
+	@Length(min = 5, max = 80, message = "Este campo 'nome' ter entre 5 e 80 caracteres")
 	private String nome;
+	@NotEmpty(message = "O preencimento do campo 'email' é obrigatorio.")
+	@Email(message = "O email é invalido")
 	private String email;
+	@NotEmpty(message = "O preencimento do campo 'cpfOuCnpj' é obrigatorio.")
 	private String cpfOuCnpj;
 	private Integer tipoCliente;
-
+	
+	@NotEmpty(message = "O preencimento do campo 'logradouro' é obrigatorio.")
 	private String logradouro;
 	private Integer numero;
 	private String complemento;
 	private String bairro;
+	@NotEmpty(message = "O preencimento do campo 'cep' é obrigatorio.")
 	private String cep;
-
+	
+	@NotEmpty(message = "O preencimento do campo 'tel1' é obrigatorio.")
 	private String tel1;
 	private String tel2;
 	private String tel3;
